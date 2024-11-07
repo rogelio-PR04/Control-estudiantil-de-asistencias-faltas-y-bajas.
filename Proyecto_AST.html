@@ -42,11 +42,29 @@
     </head>
     <body>
         <div class="container">
-            <input type="email"
-            placeholder="Correo">
-            <input type="password"
-            placeholder="Clave">
-            <button>Comenzar</button>
+		<form method="POST" action="login_query.php">
+			<div class="alert alert-info">Registrar usuario</div>
+                                <div class="form-group">
+                                        <label>Correo</label>
+                                        <input type="email" name="Correo" placeholder="Correo" class="form-control" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                        <label>Contrasenia</label>
+                                        <input type="password" name="Contrasenia" class="form-control" required="required"/>
+                                </div>
+                                <?php
+                                        //Comprobar si el 'error' de sesión está configurado. Es el mensaje si el 'Correo' y la 'Contraseña' no son válidos.
+                                        if(ISSET($_SESSION['error'])){
+                                ?>
+                                <!-- Display Login Error message -->
+                                        <div class="alert alert-danger"><?php echo $_SESSION['error']?></div>
+                                <?php
+                                        //Desactivar después de mostrar el mensaje; recuperado de sourcecodester
+                                        unset($_SESSION['error']);
+                                        }
+                                ?>
+                                <button class="btn btn-primary btn-block" name="login"><span class="glyphicon glyphicon-log-in"></span>Registrarse</button>
+		</form>
         </div>
     </body>
 </html>
