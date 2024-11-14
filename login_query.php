@@ -1,28 +1,31 @@
 <?php
-        //Empezar la sesión
-        session_start();
-        //Incluyendo la conexión a la base de datos
-        require_once 'creacion_bdd.php';
+        // Conectar a la base de datos
+	$db = new SQLite3('testDB');
        
-        if(ISSET($_POST['Proyecto_AST'])){
+        if(ISSET($_POST['register'])){
                 //Estableciendo las variables
                 $Correo = $_POST['Correo'];
                 $Contrasenia = $_POST['Contrasenia'];
                
-                // Consulta de selección (Select Query) para contar las filas que tengan el mismo valor de la contraseña y correo dados. Es para revisar si el acceso es válido o no.
-                $query = "SELECT COUNT(*) as count FROM `Data` WHERE `Correo` = :Correo AND `Contrasenia` = :Contrasenia";
-                $stmt = $conn->prepare($query);
-                $stmt->bindParam(':Correo', $Correo);
-                $stmt->bindParam(':Contrasenia', $Contrasenia);
-                $stmt->execute();
-                $row = $stmt->fetch();
-               
-                $count = $row['count'];
-                if($count > 0){
-                        header('location:home.php');
-                }else{
-                        $_SESSION['error'] = "Invalid username or password";
-                        header('location:login.php');
-                }
+                // Consulta de inserción (Insert Query)
+		try {
+			// Realizar una consulta para verificar la conexión
+			$result = $db->query('INSERT INTO `Data` (Correo, Contrasenia) VALUES(:Correo, :Contrasenia)');
+                	$stmt->bindParam(':Correo', $Correo);
+                	$stmt->bindParam(':Contrasenia', $Contrasenia);
+                
+			// Comprobar si la ejecución es un éxito
+			if($stmt->execute()){
+                        	//Fijando un éxito en la sesión ('success' session) para guardar el mensaje de éxito.
+                        	$_SESSION['success'] = "Usuario guardado con éxito";
+ 
+                        	//Redirección al módulo de 'Alumnos'
+                        	header('location: Alumnos.php');
+                	}
+		
+		} catch (Exception $e) {
+			echo "Error en la consulta: " . $e->getMessage();
+		}
+ 
         }
 ?>
