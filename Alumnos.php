@@ -40,6 +40,52 @@
 			<button value="btnEliminar" type="submit" name="accion">Eliminar </button>
 			<button value="btnCancelar" type="submit" name="accion">Cancelar </button>
 		</form>
+		<table class="table">
+  			<thead>
+    				<tr>
+      					<th scope="col">ID de Alumno</th>
+      					<th scope="col">ID de Datos</th>
+      					<th scope="col">Nombre</th>
+      					<th scope="col">Apellido paterno</th>
+					<th scope="col">Apellido materno</th>
+					<th scope="col">Carrera</th>
+					<th scope="col">Num. control</th>
+					<th scope="col">Teléfono</th>
+    				</tr>
+  			</thead>
+  			<tbody>
+    				<tr>
+      					<th scope="row">1</th>
+      					<td>1</td>
+      					<td>Joselo</td>
+					<td>Arriazas</td>
+					<td>Domingo</td>
+					<td>Ingeniería civil</td>
+					<td>14845269</td>
+					<td>33458541</td>
+    				</tr>
+    				<tr>
+      					<th scope="row">2</th>
+      					<td>2</td>
+      					<td>Carriel</td>
+					<td>Vargas</td>
+					<td>Hardrade</td>
+					<td>Gastronomía</td>
+					<td>22548496</td>
+					<td>33198550</td>
+    				</tr>
+    				<tr>
+					<th scope="row">3</th>
+      					<td>3</td>
+      					<td>Diego</td>
+					<td>Sentiel</td>
+					<td>Yurukawa</td>
+					<td>Ingeniería industrial</td>
+					<td>16528475</td>
+					<td>33345001</td>
+    				</tr>
+  			</tbody>
+		</table>
 	</div>
 </body>
 </html>
