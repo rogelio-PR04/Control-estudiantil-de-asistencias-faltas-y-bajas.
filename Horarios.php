@@ -28,6 +28,24 @@
 			<button value="btnEliminar" type="submit" name="accion">Eliminar </button>
 			<button value="btnCancelar" type="submit" name="accion">Cancelar </button>
 		</form>
+		<table class="table">
+  			<thead>
+    				<tr>
+      					<th scope="col">ID de Horario</th>
+      					<th scope="col">ID de Carrera</th>
+      					<th scope="col">ID de Materia</th>
+					<th scope="col">Duración</th>
+    				</tr>
+  			</thead>
+  			<tbody>
+    				<tr>
+      					<th scope="row">1</th>
+      					<td>1</td>
+					<td>1</td>
+					<td>17-02-2019</td>
+    				</tr>
+  			</tbody>
+		</table>
 	</div>
 </body>
 </html>
