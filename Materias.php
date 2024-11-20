@@ -31,6 +31,24 @@
 			<button value="btnEliminar" type="submit" name="accion">Eliminar </button>
 			<button value="btnCancelar" type="submit" name="accion">Cancelar </button>
 		</form>
+		<table class="table">
+  			<thead>
+    				<tr>
+      					<th scope="col">ID de Carrera</th>
+      					<th scope="col">ID de Docente</th>
+      					<th scope="col">Nombre</th>
+					<th scope="col">Código de Materia</th>
+    				</tr>
+  			</thead>
+  			<tbody>
+    				<tr>
+      					<th scope="row">1</th>
+      					<td>1</td>
+					<td>Lenguajes y autómatas</td>
+					<td>LA-0261</td>
+    				</tr>
+  			</tbody>
+		</table>
 	</div>
 </body>
 </html>
