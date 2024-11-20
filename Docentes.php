@@ -40,6 +40,32 @@
 			<button value="btnEliminar" type="submit" name="accion">Eliminar </button>
 			<button value="btnCancelar" type="submit" name="accion">Cancelar </button>
 		</form>
+		<table class="table">
+  			<thead>
+    				<tr>
+      					<th scope="col">ID de Docente</th>
+      					<th scope="col">ID de Datos</th>
+      					<th scope="col">Nombre</th>
+      					<th scope="col">Apellido paterno</th>
+					<th scope="col">Apellido materno</th>
+					<th scope="col">Materia</th>
+					<th scope="col">Num. control</th>
+					<th scope="col">Teléfono</th>
+    				</tr>
+  			</thead>
+  			<tbody>
+    				<tr>
+      					<th scope="row">1</th>
+      					<td>1</td>
+      					<td>Gustavo Fuentes</td>
+					<td>Rábago</td>
+					<td>Anís</td>
+					<td>Lenguajes y autómatas</td>
+					<td>11458135</td>
+					<td>16425698</td>
+    				</tr>
+  			</tbody>
+		</table>
 	</div>
 </body>
 </html>
