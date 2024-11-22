@@ -1,4 +1,5 @@
 <?php
+require_once 'creacion_bdd.php';
 // Conectar a la base de datos SQLite
 $database = new SQLite3('Crtl_Stdtl.db');
 
