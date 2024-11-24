@@ -10,9 +10,17 @@ $Telefono=(isset($_POST['Telefono']))?$_POST['Telefono']:"";
 
 $accion=(isset($_POST['accion']))?$_POST['accion']:"";
 
+$database = new SQLite3('Crtl_Stdtl.db');
+
 	switch($accion){
 			case "btnRegistrar":
-				echo "Registrar Alumno";
+				if(!empty($_POST["ID_Data"]) and !empty($_POST["Nombre"]) and !empty($_POST["Apellido_pat"]) and !empty($_POST["Apellido_mat"]) and !empty($_POST["Carrera"]) and !empty($_POST["Num_control"]) and !empty($_POST["Telefono"])){
+					$query = "INSERT INTO Alumno (ID_Data, Nombre, Apellido_pat, Apellido_mat, Carrera, Num_control, Telefono) VALUES ('$ID_Data', '$Nombre', '$Apellido_pat', '$Apellido_mat', '$Carrera', '$Num_control', '$Num_control')";
+					$database->exec($query);
+					echo "Todo registrado";
+				}else{
+					echo "Alguno de los campos está vacío";
+				}
 			break;
 			case "btnModificar":
 				echo "Modificar Alumno";
@@ -24,6 +32,7 @@ $accion=(isset($_POST['accion']))?$_POST['accion']:"";
 				header('location: Docentes.php');
 			break;
 	}
+$database->close();
 ?>
 
 <!DOCTYPE html>
