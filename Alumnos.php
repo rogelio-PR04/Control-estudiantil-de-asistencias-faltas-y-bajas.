@@ -1,5 +1,6 @@
 <?php
 
+$ID_Alumno=(isset($_POST['ID_Alumno']))?$_POST['ID_Alumno']:"";
 $ID_Data=(isset($_POST['ID_Data']))?$_POST['ID_Data']:"";
 $Nombre=(isset($_POST['Nombre']))?$_POST['Nombre']:"";
 $Apellido_pat=(isset($_POST['Apellido_pat']))?$_POST['Apellido_pat']:"";
@@ -15,7 +16,7 @@ $database = new SQLite3('Crtl_Stdtl.db');
 	switch($accion){
 			case "btnRegistrar":
 				if(!empty($_POST["ID_Data"]) and !empty($_POST["Nombre"]) and !empty($_POST["Apellido_pat"]) and !empty($_POST["Apellido_mat"]) and !empty($_POST["Carrera"]) and !empty($_POST["Num_control"]) and !empty($_POST["Telefono"])){
-					$query = "INSERT INTO Alumno (ID_Data, Nombre, Apellido_pat, Apellido_mat, Carrera, Num_control, Telefono) VALUES ('$ID_Data', '$Nombre', '$Apellido_pat', '$Apellido_mat', '$Carrera', '$Num_control', '$Num_control')";
+					$query = "INSERT INTO Alumno (ID_Data, Nombre, Apellido_pat, Apellido_mat, Carrera, Num_control, Telefono) VALUES ('$ID_Data', '$Nombre', '$Apellido_pat', '$Apellido_mat', '$Carrera', '$Num_control', '$Telefono')";
 					$database->exec($query);
 					echo "Todo registrado";
 				}else{
@@ -91,36 +92,22 @@ $database->close();
     				</tr>
   			</thead>
   			<tbody>
-    				<tr>
-      					<th scope="row">1</th>
-      					<td>1</td>
-      					<td>Joselo</td>
-					<td>Arriazas</td>
-					<td>Domingo</td>
-					<td>Ingeniería civil</td>
-					<td>14845269</td>
-					<td>33458541</td>
-    				</tr>
-    				<tr>
-      					<th scope="row">2</th>
-      					<td>2</td>
-      					<td>Carriel</td>
-					<td>Vargas</td>
-					<td>Hardrade</td>
-					<td>Gastronomía</td>
-					<td>22548496</td>
-					<td>33198550</td>
-    				</tr>
-    				<tr>
-					<th scope="row">3</th>
-      					<td>3</td>
-      					<td>Diego</td>
-					<td>Sentiel</td>
-					<td>Yurukawa</td>
-					<td>Ingeniería industrial</td>
-					<td>16528475</td>
-					<td>33345001</td>
-    				</tr>
+				<?php
+					$db = new SQLite3('Crtl_Stdtl.db');
+					$result = $db->query('SELECT * FROM Alumno');
+					while ($row = $result->fetchArray(SQLITE3_ASSOC)) {?>
+						<tr>
+						<th scope="row"><?= $row['ID_Alumno'] ?></th>
+						<td><?= $row['ID_Data'] ?></td>
+						<td><?= $row['Nombre'] ?></td>
+						<td><?= $row['Apellido_pat'] ?></td>
+						<td><?= $row['Apellido_mat'] ?></td>
+						<td><?= $row['Carrera'] ?></td>
+						<td><?= $row['Num_control'] ?></td>
+						<td><?= $row['Telefono'] ?></td>
+						</tr>
+					<?php }
+				?>
   			</tbody>
 		</table>
 	</div>
