@@ -24,10 +24,22 @@ $database = new SQLite3('Crtl_Stdtl.db');
 				}
 			break;
 			case "btnModificar":
-				echo "Modificar Alumno";
+				if(!empty($_POST["ID_Data"]) and !empty($_POST["Nombre"]) and !empty($_POST["Apellido_pat"]) and !empty($_POST["Apellido_mat"]) and !empty($_POST["Carrera"]) and !empty($_POST["Num_control"]) and !empty($_POST["Telefono"])){
+					$query = "UPDATE Alumno SET Nombre='$Nombre', Apellido_pat='$Apellido_pat', Apellido_mat='$Apellido_mat', Carrera='$Carrera', Num_control='$Num_control', Telefono='$Telefono' WHERE ID_Data='$ID_Data'";
+					$database->exec($query);
+					echo "Datos modificados";
+				}else{
+					echo "Alguno de los campos está vacío";
+				}
 			break;
 			case "btnEliminar":
-				echo "Eliminar Alumno";
+				$query = "DELETE FROM Alumno WHERE ID_Data='$ID_Data'";
+				$resultado = $database->exec($query);
+				if($resultado === false){
+					echo "Error al eliminar";
+				}else{
+					echo "Datos eliminados";
+				}
 			break;
 			case "btnCambiar":
 				header('location: Docentes.php');
