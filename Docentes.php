@@ -1,3 +1,53 @@
+<?php
+
+$ID_Docente=(isset($_POST['ID_Docente']))?$_POST['ID_Docente']:"";
+$ID_Data=(isset($_POST['ID_Data']))?$_POST['ID_Data']:"";
+$Nombre=(isset($_POST['Nombre']))?$_POST['Nombre']:"";
+$Apellido_pat=(isset($_POST['Apellido_pat']))?$_POST['Apellido_pat']:"";
+$Apellido_mat=(isset($_POST['Apellido_mat']))?$_POST['Apellido_mat']:"";
+$Materia=(isset($_POST['Materia']))?$_POST['Materia']:"";
+$Num_control=(isset($_POST['Num_control']))?$_POST['Num_control']:"";
+$Telefono=(isset($_POST['Telefono']))?$_POST['Telefono']:"";
+
+$accion=(isset($_POST['accion']))?$_POST['accion']:"";
+
+$database = new SQLite3('Crtl_Stdtl.db');
+
+	switch($accion){
+			case "btnRegistrar":
+				if(!empty($_POST["ID_Data"]) and !empty($_POST["Nombre"]) and !empty($_POST["Apellido_pat"]) and !empty($_POST["Apellido_mat"]) and !empty($_POST["Materia"]) and !empty($_POST["Num_control"]) and !empty($_POST["Telefono"])){
+					$query = "INSERT INTO Docente (ID_Data, Nombre, Apellido_pat, Apellido_mat, Materia, Num_control, Telefono) VALUES ('$ID_Data', '$Nombre', '$Apellido_pat', '$Apellido_mat', '$Materia', '$Num_control', '$Telefono')";
+					$database->exec($query);
+					echo "Todo registrado";
+				}else{
+					echo "Alguno de los campos está vacío";
+				}
+			break;
+			case "btnModificar":
+				if(!empty($_POST["ID_Data"]) and !empty($_POST["Nombre"]) and !empty($_POST["Apellido_pat"]) and !empty($_POST["Apellido_mat"]) and !empty($_POST["Materia"]) and !empty($_POST["Num_control"]) and !empty($_POST["Telefono"])){
+					$query = "UPDATE Docente SET Nombre='$Nombre', Apellido_pat='$Apellido_pat', Apellido_mat='$Apellido_mat', Materia='$Materia', Num_control='$Num_control', Telefono='$Telefono' WHERE ID_Data='$ID_Data'";
+					$database->exec($query);
+					echo "Datos modificados";
+				}else{
+					echo "Alguno de los campos está vacío";
+				}
+			break;
+			case "btnEliminar":
+				$query = "DELETE FROM Docente WHERE ID_Data='$ID_Data'";
+				$resultado = $database->exec($query);
+				if($resultado === false){
+					echo "Error al eliminar";
+				}else{
+					echo "Datos eliminados";
+				}
+			break;
+			case "btnCambiar":
+				header('location: Administrativos.php');
+			break;
+	}
+$database->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,31 +64,31 @@
 	<div class="container">
 		<form action="" method="post" ectype="multipart/form-data" >
 			<label for="ID_Data">ID Data:</label><br>
-			<input type="text" id="ID_Data" name="ID_Data"><br>
+			<input type="text" id="ID_Data" name="ID_Data" value="<?php echo $ID_Data?>"><br>
 
 			<label for="Nombre">Nombre:</label><br>
-			<input type="text" id="Nombre" name="Nombre"><br>
+			<input type="text" id="Nombre" name="Nombre" value="<?php echo $Nombre?>"><br>
 			
 			<label for="Apellido_pat">Apellido paterno:</label><br>
-			<input type="text" id="Apellido_pat" name="Apellido_pat"><br>
+			<input type="text" id="Apellido_pat" name="Apellido_pat" value="<?php echo $Apellido_pat?>"><br>
 
 			<label for="Apellido_mat">Apellido materno:</label><br>
-			<input type="text" id="Apellido_mat" name="Apellido_mat"><br>
+			<input type="text" id="Apellido_mat" name="Apellido_mat" value="<?php echo $Apellido_mat?>"><br>
 
 			<label for="Materia">Materia:</label><br>
-			<input type="text" id="Materia" name="Materia"><br>
+			<input type="text" id="Materia" name="Materia" value="<?php echo $Materia?>"><br>
 
 			<label for="Num_control">Numero de control:</label><br>
-			<input type="text" id="Num_control" name="Num_control"><br>
+			<input type="text" id="Num_control" name="Num_control" value="<?php echo $Num_control?>"><br>
 
 			<label for="Telefono">Telefono:</label><br>
-			<input type="text" id="Telefono" name="Telefono"><br>
+			<input type="text" id="Telefono" name="Telefono" value="<?php echo $Telefono?>"><br>
 
 			<br>
 			<button value="btnRegistrar" type="submit" name="accion">Registrar </button>
 			<button value="btnModificar" type="submit" name="accion">Modificar </button>
 			<button value="btnEliminar" type="submit" name="accion">Eliminar </button>
-			<button value="btnCancelar" type="submit" name="accion">Cancelar </button>
+			<button value="btnCambiar" type="submit" name="accion">Al módulo administrativos </button>
 		</form>
 		<table class="table">
   			<thead>
@@ -54,16 +104,22 @@
     				</tr>
   			</thead>
   			<tbody>
-    				<tr>
-      					<th scope="row">1</th>
-      					<td>1</td>
-      					<td>Gustavo Fuentes</td>
-					<td>Rábago</td>
-					<td>Anís</td>
-					<td>Lenguajes y autómatas</td>
-					<td>11458135</td>
-					<td>16425698</td>
-    				</tr>
+				<?php
+					$db = new SQLite3('Crtl_Stdtl.db');
+					$result = $db->query('SELECT * FROM Docente');
+					while ($row = $result->fetchArray(SQLITE3_ASSOC)) {?>
+						<tr>
+						<th scope="row"><?= $row['ID_Docente'] ?></th>
+						<td><?= $row['ID_Data'] ?></td>
+						<td><?= $row['Nombre'] ?></td>
+						<td><?= $row['Apellido_pat'] ?></td>
+						<td><?= $row['Apellido_mat'] ?></td>
+						<td><?= $row['Materia'] ?></td>
+						<td><?= $row['Num_control'] ?></td>
+						<td><?= $row['Telefono'] ?></td>
+						</tr>
+					<?php }
+				?>
   			</tbody>
 		</table>
 	</div>
